@@ -3,7 +3,7 @@
 const path = require("path");
 
 module.exports = {
-  entry: ["react-hot-loader/patch", "./kworld/index"],
+  entry: ["react-hot-loader/patch", "./k-world/index"],
   output: {
     path: __dirname,
     filename: "bundle.js",
