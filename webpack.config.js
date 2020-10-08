@@ -10,6 +10,9 @@ module.exports = {
     filename: "bundle.js",
     publicPath: "/dist/",
   },
+  devServer: {
+    port: 3002,
+  },
   plugins: [
     new webpack.DefinePlugin({
       "process.env": {

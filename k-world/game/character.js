@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { observer } from 'mobx-react';
-import Matter from 'matter-js';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { observer } from "mobx-react";
+import Matter from "matter-js";
 
-import { AudioPlayer, Body, Sprite } from '../../src';
+import { AudioPlayer, Body, Sprite } from "../../src";
 
 @observer
 export default class Character extends Component {
@@ -43,12 +43,12 @@ export default class Character extends Component {
   }
 
   componentDidMount() {
-    this.jumpNoise = new AudioPlayer('/assets/jump.wav');
-    Matter.Events.on(this.context.engine, 'afterUpdate', this.update);
-  }
+    this.jumpNoise = new AudioPlayer("/assets/jump.wav");
+    Matter.Events.on(this.context.engine, "afterUpdate", this.update);
+  } //character will pin top left without it
 
   componentWillUnmount() {
-    Matter.Events.off(this.context.engine, 'afterUpdate', this.update);
+    Matter.Events.off(this.context.engine, "afterUpdate", this.update);
   }
 
   getWrapperStyles() {
@@ -58,9 +58,9 @@ export default class Character extends Component {
     const targetX = x + stageX;
 
     return {
-      position: 'absolute',
+      position: "absolute",
       transform: `translate(${targetX * scale}px, ${y * scale}px)`,
-      transformOrigin: 'left top',
+      transformOrigin: "left top",
     };
   }
 
@@ -72,7 +72,7 @@ export default class Character extends Component {
         <Body
           args={[x, 384, 64, 64]}
           inertia={Infinity}
-          ref={b => {
+          ref={(b) => {
             this.body = b;
           }}
         >
@@ -93,18 +93,18 @@ export default class Character extends Component {
     this.setState({
       spritePlaying: state ? true : false,
     });
-  };
+  }
 
   move(body, x) {
     Matter.Body.setVelocity(body, { x, y: 0 });
-  };
+  }
 
   jump(body) {
     this.jumpNoise.play();
     this.isJumping = true;
     Matter.Body.applyForce(body, { x: 0, y: 0 }, { x: 0, y: -0.15 });
-    Matter.Body.set(body, 'friction', 0.0001);
-  };
+    Matter.Body.set(body, "friction", 0.0001);
+  }
 
   punch() {
     this.isPunching = true;
@@ -112,12 +112,12 @@ export default class Character extends Component {
       characterState: 4,
       repeat: false,
     });
-  };
+  }
 
   getDoorIndex(body) {
     let doorIndex = null;
 
-    const doorPositions = [...Array(6).keys()].map(a => {
+    const doorPositions = [...Array(6).keys()].map((a) => {
       return [512 * a + 208, 512 * a + 272];
     });
 
@@ -128,7 +128,7 @@ export default class Character extends Component {
     });
 
     return doorIndex;
-  };
+  }
 
   enterBuilding(body) {
     const doorIndex = this.getDoorIndex(body);
@@ -140,7 +140,7 @@ export default class Character extends Component {
       this.isLeaving = true;
       this.props.onEnterBuilding(doorIndex);
     }
-  };
+  }
 
   checkKeys(shouldMoveStageLeft, shouldMoveStageRight) {
     const { keys, store } = this.props;
@@ -180,7 +180,7 @@ export default class Character extends Component {
       characterState,
       repeat: characterState < 2,
     });
-  };
+  }
 
   update() {
     const { store } = this.props;
@@ -196,7 +196,7 @@ export default class Character extends Component {
 
     if (velY === 0) {
       this.isJumping = false;
-      Matter.Body.set(body, 'friction', 0.9999);
+      Matter.Body.set(body, "friction", 0.9999);
     }
 
     if (!this.isJumping && !this.isPunching && !this.isLeaving) {
@@ -217,5 +217,5 @@ export default class Character extends Component {
     }
 
     this.lastX = body.position.x;
-  };
+  }
 }

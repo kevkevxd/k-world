@@ -9,6 +9,9 @@ module.exports = {
     filename: "bundle.js",
     publicPath: "/",
   },
+  devServer: {
+    port: 3000,
+  },
   module: {
     rules: [
       {

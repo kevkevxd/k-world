@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { autorun } from 'mobx';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { autorun } from "mobx";
 
-import { TileMap } from '../../src';
+import { TileMap } from "../../src";
 
-import GameStore from './stores/game-store';
+import GameStore from "./stores/game-store";
 
 export default class Level extends Component {
   static contextTypes = {
@@ -19,7 +19,7 @@ export default class Level extends Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount() { //character will get stuck at the first building w/o this
     this.cameraWatcher = autorun(() => {
       const targetX = Math.round(GameStore.stageX * this.context.scale);
       this.setState({
@@ -41,9 +41,9 @@ export default class Level extends Component {
 
   getWrapperStyles() {
     return {
-      position: 'absolute',
+      position: "absolute",
       transform: `translate(${this.state.stageX}px, 0px) translateZ(0)`,
-      transformOrigin: 'top left',
+      transformOrigin: "top left",
     };
   }
 
