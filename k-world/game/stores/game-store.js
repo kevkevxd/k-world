@@ -1,5 +1,5 @@
-import { observable } from 'mobx';
-
+import { observable } from "mobx";
+//observable defines a trackable field that stores the state.
 class GameStore {
   @observable characterPosition = { x: 0, y: 0 };
 

@@ -1,40 +1,37 @@
 /* global __dirname:false */
 
-const path = require('path');
+const path = require("path");
 
 module.exports = {
-  entry: [
-    'react-hot-loader/patch',
-    './demo/index',
-  ],
+  entry: ["react-hot-loader/patch", "./kworld/index"],
   output: {
     path: __dirname,
-    filename: 'bundle.js',
-    publicPath: '/',
+    filename: "bundle.js",
+    publicPath: "/",
   },
   module: {
     rules: [
       {
         test: /\.js$/,
-        include: [path.join(__dirname, 'src'), path.join(__dirname, 'demo')],
+        include: [path.join(__dirname, "src"), path.join(__dirname, "k-world")],
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
           options: {
-            plugins: ['react-hot-loader/babel'],
+            plugins: ["react-hot-loader/babel"],
           },
         },
       },
       {
         test: /\.json$/,
         use: {
-          loader: 'json-loader',
+          loader: "json-loader",
         },
       },
       {
         test: /\.css$/,
-        include: [path.join(__dirname, 'src'), path.join(__dirname, 'demo')],
+        include: [path.join(__dirname, "src"), path.join(__dirname, "k-world")],
         use: {
-          loader: 'style-loader!css-loader!postcss-loader',
+          loader: "style-loader!css-loader!postcss-loader",
         },
       },
     ],
