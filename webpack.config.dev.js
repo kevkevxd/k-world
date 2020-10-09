@@ -10,7 +10,10 @@ module.exports = {
     publicPath: "/",
   },
   devServer: {
-    port: 3000,
+    port: 3003,
+  },
+  node: {
+    fs: "empty",
   },
   module: {
     rules: [

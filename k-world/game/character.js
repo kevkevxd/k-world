@@ -76,7 +76,7 @@ export default class Character extends Component {
             this.body = b;
           }}
         >
-          <Sprite
+          <Sprite //current character selected
             repeat={this.state.repeat}
             onPlayStateChanged={this.handlePlayStateChanged}
             src="assets/character-sprite.png"

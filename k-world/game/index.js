@@ -17,7 +17,7 @@ export default class Game extends Component {
 
   //base music
   componentDidMount() {
-    this.player = new AudioPlayer("/assets/satellite.wav", () => {
+    this.player = new AudioPlayer("/assets/ellinia.wav", () => {
       this.stopMusic = this.player.play({
         loop: true,
         offset: 1,

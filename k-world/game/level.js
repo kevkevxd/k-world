@@ -5,6 +5,7 @@ import { autorun } from "mobx";
 import { TileMap } from "../../src";
 
 import GameStore from "./stores/game-store";
+require("dotenv").config();
 
 export default class Level extends Component {
   static contextTypes = {
@@ -19,7 +20,8 @@ export default class Level extends Component {
     };
   }
 
-  componentDidMount() { //character will get stuck at the first building w/o this
+  componentDidMount() {
+    //character will get stuck at the first building w/o this
     this.cameraWatcher = autorun(() => {
       const targetX = Math.round(GameStore.stageX * this.context.scale);
       this.setState({
@@ -46,13 +48,20 @@ export default class Level extends Component {
       transformOrigin: "top left",
     };
   }
-
+  getImage = () => {
+    fetch(
+      `"https://api.unsplash.com/photos/random?page=1&query=space&dpr=2&w=3072&h=512&fit=max&client_id=${process.env.REACT_APP_ACCESS}"`
+    )
+      .then((res) => res.json)
+      .then((data) => console.log(data));
+  };
   render() {
+    this.getImage;
     return (
       <div style={this.getWrapperStyles()}>
         <TileMap
           style={{ top: Math.floor(64 * this.context.scale) }}
-          src="assets/boardwalktile.png"
+          src="assets/Space.png"
           tileSize={128}
           columns={24}
           rows={4}

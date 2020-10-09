@@ -10,6 +10,7 @@ class GameStore {
   }
 
   setStageX(x) {
+    //movement gets stuck w/o this
     if (x > 0) {
       this.stageX = 0;
     } else if (x < -2048) {

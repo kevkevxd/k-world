@@ -11,7 +11,10 @@ module.exports = {
     publicPath: "/dist/",
   },
   devServer: {
-    port: 3002,
+    port: 3003,
+  },
+  node: {
+    fs: "empty",
   },
   plugins: [
     new webpack.DefinePlugin({

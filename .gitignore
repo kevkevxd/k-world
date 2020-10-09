@@ -3,5 +3,5 @@ npm-debug.log
 lib
 umd
 dist
-
+.env
 .idea
