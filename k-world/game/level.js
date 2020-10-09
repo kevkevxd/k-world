@@ -3,9 +3,11 @@ import PropTypes from "prop-types";
 import { autorun } from "mobx";
 
 import { TileMap } from "../../src";
-
+import dotenv from "dotenv";
 import GameStore from "./stores/game-store";
 require("dotenv").config();
+
+const apikey = process.env.REACT_APP_ACCESS_APIKEY;
 
 export default class Level extends Component {
   static contextTypes = {
@@ -48,15 +50,17 @@ export default class Level extends Component {
       transformOrigin: "top left",
     };
   }
-  getImage = () => {
-    fetch(
-      `"https://api.unsplash.com/photos/random?page=1&query=space&dpr=2&w=3072&h=512&fit=max&client_id=${process.env.REACT_APP_ACCESS}"`
-    )
-      .then((res) => res.json)
-      .then((data) => console.log(data));
-  };
+  // componentDidMount() {
+  //   fetch(
+  //     `https://api.unsplash.com/photos/random?page=1&query=space&w=3072&h=512&fit=max&dpr=2&client_id=${apikey}`
+  //   )
+  //     .then((res) => res.json)
+  //     .then((data) => console.log(data));
+  // }
   render() {
-    this.getImage;
+    console.log(apikey);
+    const pretendWorkingApiPull =
+      "https://images.unsplash.com/photo-1532891463981-a5b6ca49f344?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&h=512&w=3072&fit=crop&ixid=eyJhcHBfaWQiOjE3MjgzNH0";
     return (
       <div style={this.getWrapperStyles()}>
         <TileMap
@@ -168,7 +172,7 @@ export default class Level extends Component {
         />
         <TileMap
           style={{ top: Math.floor(-63 * this.context.scale) }}
-          src="assets/buildings.png"
+          src={pretendWorkingApiPull}
           rows={1}
           columns={6}
           tileSize={512}
