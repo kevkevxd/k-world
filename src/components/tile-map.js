@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 export default class TileMap extends Component {
   static propTypes = {
@@ -18,7 +18,7 @@ export default class TileMap extends Component {
     layers: [],
     renderTile: (tile, src, styles) => <img style={styles} src={src} />,
     rows: 9,
-    src: '',
+    src: "",
     tileSize: 64,
   };
 
@@ -85,10 +85,10 @@ export default class TileMap extends Component {
     const left = (imageIndex - 1) * size;
 
     return {
-      position: 'absolute',
-      imageRendering: 'pixelated',
-      display: 'block',
-      height: '100%',
+      position: "absolute",
+      imageRendering: "pixelated",
+      display: "block",
+      height: "100%",
       transform: `translate(-${left}px, 0px)`,
     };
   }
@@ -104,15 +104,15 @@ export default class TileMap extends Component {
     return {
       height: size,
       width: size,
-      overflow: 'hidden',
-      position: 'absolute',
+      overflow: "hidden",
+      position: "absolute",
       transform: `translate(${left}px, ${top}px)`,
     };
   }
 
   getLayerStyles() {
     return {
-      position: 'absolute',
+      position: "absolute",
       top: 0,
       left: 0,
     };
@@ -120,7 +120,7 @@ export default class TileMap extends Component {
 
   getWrapperStyles() {
     return {
-      position: 'absolute',
+      position: "absolute",
       top: 0,
       left: 0,
     };

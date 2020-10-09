@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 export default class Sprite extends Component {
-
   static propTypes = {
     offset: PropTypes.array,
     onPlayStateChanged: PropTypes.func,
@@ -21,7 +20,7 @@ export default class Sprite extends Component {
     offset: [0, 0],
     onPlayStateChanged: () => {},
     repeat: true,
-    src: '',
+    src: "",
     state: 0,
     steps: [],
     ticksPerFrame: 4,
@@ -59,12 +58,15 @@ export default class Sprite extends Component {
       this.context.loop.unsubscribe(this.loopID);
       this.tickCount = 0;
 
-      this.setState({
-        currentStep: 0,
-      }, () => {
-        const animate = this.animate.bind(this, nextProps);
-        this.loopID = this.context.loop.subscribe(animate);
-      });
+      this.setState(
+        {
+          currentStep: 0,
+        },
+        () => {
+          const animate = this.animate.bind(this, nextProps);
+          this.loopID = this.context.loop.subscribe(animate);
+        }
+      );
     }
   }
 
@@ -95,18 +97,17 @@ export default class Sprite extends Component {
     } else {
       this.tickCount++;
     }
-
   }
 
   getImageStyles() {
     const { currentStep } = this.state;
     const { state, tileWidth, tileHeight } = this.props;
 
-    const left = this.props.offset[0] + (currentStep * tileWidth);
-    const top = this.props.offset[1] + (state * tileHeight);
+    const left = this.props.offset[0] + currentStep * tileWidth;
+    const top = this.props.offset[1] + state * tileHeight;
 
     return {
-      position: 'absolute',
+      position: "absolute",
       transform: `translate(-${left}px, -${top}px)`,
     };
   }
@@ -115,23 +116,19 @@ export default class Sprite extends Component {
     return {
       height: this.props.tileHeight,
       width: this.props.tileWidth,
-      overflow: 'hidden',
-      position: 'relative',
+      overflow: "hidden",
+      position: "relative",
       transform: `scale(${this.props.scale || this.context.scale})`,
-      transformOrigin: 'top left',
-      imageRendering: 'pixelated',
+      transformOrigin: "top left",
+      imageRendering: "pixelated",
     };
   }
 
   render() {
     return (
       <div style={{ ...this.getWrapperStyles(), ...this.props.style }}>
-        <img
-          style={this.getImageStyles()}
-          src={this.props.src}
-        />
+        <img style={this.getImageStyles()} src={this.props.src} />
       </div>
     );
   }
-
 }

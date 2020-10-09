@@ -62,6 +62,7 @@ export default class Game extends Component {
   }
 
   physicsInit(engine) {
+    //adds barriers to our game
     const ground = Matter.Bodies.rectangle(512 * 3, 448, 1024 * 3, 64, {
       isStatic: true,
     });

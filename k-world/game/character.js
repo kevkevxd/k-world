@@ -40,6 +40,7 @@ export default class Character extends Component {
     this.enterBuilding = this.enterBuilding.bind(this);
     this.checkKeys = this.checkKeys.bind(this);
     this.update = this.update.bind(this);
+    //.bind(this) gives them this prop in functional component
   }
 
   componentDidMount() {
