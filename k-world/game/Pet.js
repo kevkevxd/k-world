@@ -4,7 +4,7 @@ import { observer } from "mobx-react";
 import { Body, Sprite } from "../../src";
 
 @observer
-class Portal extends React.Component {
+class Pet extends React.Component {
   static propTypes = {
     keys: PropTypes.object,
     store: PropTypes.object,
@@ -19,7 +19,7 @@ class Portal extends React.Component {
     const { characterPosition, stageX } = this.props.store;
     const { scale } = this.context;
     const { x, y } = characterPosition;
-    const targetX = x + stageX + 100;
+    const targetX = x + stageX - 100;
     const targetY = y - 40;
 
     return {
@@ -31,24 +31,19 @@ class Portal extends React.Component {
   }
   render() {
     return (
-      this.props.store.isPortalOpen && (
-        <div className="portal" style={this.getWrapperStyles()}>
-          <Body
-            args={[300, 384, 64, 64]}
-            inertia={Infinity}
-            ref={(b) => {
-              this.body = b;
-            }}
-          >
-            <img
-              src="assets/portal.png"
-              style={{ width: "auto", height: 150 }}
-            />
-          </Body>
-        </div>
-      )
+      <div className="portal" style={this.getWrapperStyles()}>
+        <Body
+          args={[300, 384, 64, 64]}
+          inertia={Infinity}
+          ref={(b) => {
+            this.body = b;
+          }}
+        >
+          <img src="assets/portal.png" style={{ width: "auto", height: 150 }} />
+        </Body>
+      </div>
     );
   }
 }
 
-export default Portal;
+export default Pet;

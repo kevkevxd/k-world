@@ -60,12 +60,15 @@ export default class Character extends Component {
 
     return {
       position: "absolute",
+      // Translate is a CSS property that will move the container
       transform: `translate(${targetX * scale}px, ${y * scale}px)`,
       transformOrigin: "left top",
     };
   }
 
   render() {
+    // this is accessing character position from gamestore through regular props
+    // that are imported from gameIndex
     const x = this.props.store.characterPosition.x;
 
     return (
@@ -81,9 +84,9 @@ export default class Character extends Component {
             repeat={this.state.repeat}
             onPlayStateChanged={this.handlePlayStateChanged}
             src="assets/leattyspritesheet.png"
-            scale={this.context.scale * 2}
+            scale={this.context.scale * 1}
             state={this.state.characterState}
-            steps={[9, 9, 0, 4, 5]}
+            steps={[10, 10, 0, 5, 6]}
           />
         </Body>
       </div>
@@ -127,7 +130,7 @@ export default class Character extends Component {
         doorIndex = di;
       }
     });
-
+    //where each door is. we can use body.position to figure out items and portals
     return doorIndex;
   }
 

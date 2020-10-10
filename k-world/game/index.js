@@ -34,7 +34,8 @@ export default class Game extends Component {
       this.keyListener.RIGHT,
       this.keyListener.UP,
       this.keyListener.SPACE,
-      65,
+      this.keyListener.A,
+      this.keyListener.CTRL,
     ]);
   }
 
@@ -54,7 +55,7 @@ export default class Game extends Component {
               store={GameStore}
               keys={this.keyListener}
             />
-            <Portal />
+            <Portal store={GameStore} />
           </World>
         </Stage>
         <Fade visible={this.state.fade} />
@@ -80,12 +81,9 @@ export default class Game extends Component {
       isStatic: true,
     });
 
-    const icecream = Matter.Bodies.rectangle(40, 448, 20, 20);
-
     Matter.World.addBody(engine.world, ground);
     Matter.World.addBody(engine.world, leftWall);
     Matter.World.addBody(engine.world, rightWall);
-    Matter.World.addBody(engine.world, icecream);
   }
 
   handleEnterBuilding(index) {

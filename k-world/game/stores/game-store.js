@@ -1,10 +1,13 @@
 import { observable } from "mobx";
 //observable defines a trackable field that stores the state.
 class GameStore {
+  //these are states
   @observable characterPosition = { x: 0, y: 0 };
-
   @observable stageX = 0;
+  @observable portalPosition = { x: 0, y: 0 };
+  @observable isPortalOpen = false;
 
+  //these set states
   setCharacterPosition(position) {
     this.characterPosition = position;
   }
@@ -19,6 +22,19 @@ class GameStore {
       this.stageX = x;
     }
   }
+
+  setPortalPosition(position) {
+    this.portalPosition = position;
+  }
+
+  openPortal() {
+    this.isPortalOpen = true;
+  }
+
+  closePortal() {
+    this.isPortalOpen = false;
+  }
 }
 
 export default new GameStore();
+//this is a new instance "active"
