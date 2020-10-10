@@ -1,10 +1,11 @@
 export default class KeyListener {
-
-  LEFT = 37;
-  RIGHT = 39;
-  UP = 38;
-  DOWN = 40;
-  SPACE = 32;
+  LEFT = "ArrowLeft";
+  RIGHT = "ArrowRight";
+  UP = "ArrowUp";
+  DOWN = "ArrowDown";
+  SPACE = " ";
+  CTRL = "Control";
+  A = "a";
 
   constructor() {
     this.keys = {};
@@ -17,26 +18,26 @@ export default class KeyListener {
   }
 
   down(event) {
-    if (event.keyCode in this.keys) {
+    if (event.key in this.keys) {
       event.preventDefault();
-      this.keys[event.keyCode] = true;
+      this.keys[event.key] = true;
     }
   }
 
   up(event) {
-    if (event.keyCode in this.keys) {
+    if (event.key in this.keys) {
       event.preventDefault();
-      this.keys[event.keyCode] = false;
+      this.keys[event.key] = false;
     }
   }
 
-  isDown(keyCode) {
-    return this.keys[keyCode] || false;
+  isDown(key) {
+    return this.keys[key] || false;
   }
 
   subscribe(keys) {
-    window.addEventListener('keydown', this.down);
-    window.addEventListener('keyup', this.up);
+    window.addEventListener("keydown", this.down);
+    window.addEventListener("keyup", this.up);
 
     keys.forEach((key) => {
       this.keys[key] = false;
@@ -44,8 +45,8 @@ export default class KeyListener {
   }
 
   unsubscribe() {
-    window.removeEventListener('keydown', this.down);
-    window.removeEventListener('keyup', this.up);
+    window.removeEventListener("keydown", this.down);
+    window.removeEventListener("keyup", this.up);
     this.keys = {};
   }
 }
