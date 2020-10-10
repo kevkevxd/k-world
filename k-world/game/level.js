@@ -3,9 +3,8 @@ import PropTypes from "prop-types";
 import { autorun } from "mobx";
 
 import { TileMap } from "../../src";
-import dotenv from "dotenv";
+
 import GameStore from "./stores/game-store";
-require("dotenv").config();
 
 const apikey = process.env.REACT_APP_ACCESS_APIKEY;
 
@@ -172,7 +171,8 @@ export default class Level extends Component {
         />
         <TileMap
           style={{ top: Math.floor(-63 * this.context.scale) }}
-          src={pretendWorkingApiPull}
+          // src={pretendWorkingApiPull}
+          src="assets/boardwalktile.png"
           rows={1}
           columns={6}
           tileSize={512}

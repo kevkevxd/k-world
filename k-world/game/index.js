@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Matter from "matter-js";
 
 import { AudioPlayer, Loop, Stage, KeyListener, World } from "../../src";
-
+import Portal from "./Portal";
 import Character from "./character";
 import Level from "./level";
 import Fade from "./fade";
@@ -17,13 +17,13 @@ export default class Game extends Component {
 
   //base music
   componentDidMount() {
-    this.player = new AudioPlayer("/assets/ellinia.wav", () => {
-      this.stopMusic = this.player.play({
-        loop: true,
-        offset: 1,
-        volume: 0.1,
-      });
-    });
+    // this.player = new AudioPlayer("/assets/ellinia.wav", () => {
+    //   this.stopMusic = this.player.play({
+    //     loop: true,
+    //     offset: 1,
+    //     volume: 0,
+    //   });
+    // });
 
     this.setState({
       fade: false,
@@ -54,12 +54,17 @@ export default class Game extends Component {
               store={GameStore}
               keys={this.keyListener}
             />
+            <Portal />
           </World>
         </Stage>
         <Fade visible={this.state.fade} />
       </Loop>
     );
   }
+
+  //onCollision(engine) {
+
+  // }
 
   physicsInit(engine) {
     //adds barriers to our game
@@ -75,9 +80,12 @@ export default class Game extends Component {
       isStatic: true,
     });
 
+    const icecream = Matter.Bodies.rectangle(40, 448, 20, 20);
+
     Matter.World.addBody(engine.world, ground);
     Matter.World.addBody(engine.world, leftWall);
     Matter.World.addBody(engine.world, rightWall);
+    Matter.World.addBody(engine.world, icecream);
   }
 
   handleEnterBuilding(index) {
