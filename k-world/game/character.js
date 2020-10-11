@@ -79,6 +79,7 @@ export default class Character extends Component {
           ref={(b) => {
             this.body = b;
           }}
+          label="Character"
         >
           <Sprite //current character selected
             repeat={this.state.repeat}
@@ -110,6 +111,7 @@ export default class Character extends Component {
     Matter.Body.set(body, "friction", 0.0001);
   }
 
+  enterPortal() {}
   punch() {
     this.isPunching = true;
     this.setState({
@@ -152,18 +154,22 @@ export default class Character extends Component {
 
     let characterState = 2;
 
-    if (keys.isDown(65)) {
+    // Punch when you press A
+    if (keys.isDown(keys.A)) {
       return this.punch();
     }
 
+    // Jump when you press space
     if (keys.isDown(keys.SPACE)) {
       this.jump(body);
     }
 
+    // Enter building when you press up
     if (keys.isDown(keys.UP)) {
       return this.enterBuilding(body);
     }
 
+    // ???? when you press down
     if (keys.isDown(keys.LEFT)) {
       if (shouldMoveStageLeft) {
         store.setStageX(store.stageX + 5);
@@ -178,6 +184,11 @@ export default class Character extends Component {
 
       this.move(body, 5);
       characterState = 0;
+    }
+
+    // Open portal when you press ctrl
+    if (keys.isDown(keys.CTRL)) {
+      store.openPortal();
     }
 
     this.setState({
@@ -203,10 +214,13 @@ export default class Character extends Component {
       Matter.Body.set(body, "friction", 0.9999);
     }
 
+    // When character is moving or doing something
     if (!this.isJumping && !this.isPunching && !this.isLeaving) {
       this.checkKeys(shouldMoveStageLeft, shouldMoveStageRight);
 
       store.setCharacterPosition(body.position);
+
+      store.checkEnterPortal();
     } else {
       if (this.isPunching && this.state.spritePlaying === false) {
         this.isPunching = false;

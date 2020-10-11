@@ -57,7 +57,6 @@ export default class Level extends Component {
   //     .then((data) => console.log(data));
   // }
   render() {
-    console.log(apikey);
     const pretendWorkingApiPull =
       "https://images.unsplash.com/photo-1532891463981-a5b6ca49f344?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&h=512&w=3072&fit=crop&ixid=eyJhcHBfaWQiOjE3MjgzNH0";
     return (
@@ -172,7 +171,7 @@ export default class Level extends Component {
         <TileMap
           style={{ top: Math.floor(-63 * this.context.scale) }}
           // src={pretendWorkingApiPull}
-          src="assets/boardwalktile.png"
+          src={this.props.currentPaper}
           rows={1}
           columns={6}
           tileSize={512}

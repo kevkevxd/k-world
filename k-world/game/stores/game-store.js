@@ -28,11 +28,25 @@ class GameStore {
   }
 
   openPortal() {
+    const newPortalPosition = {
+      x: this.characterPosition.x + 500,
+      y: this.characterPosition.y - 40,
+    };
+    this.setPortalPosition(newPortalPosition);
     this.isPortalOpen = true;
   }
 
   closePortal() {
     this.isPortalOpen = false;
+  }
+
+  checkEnterPortal() {
+    if (
+      this.characterPosition.x >= this.portalPosition.x - 20 &&
+      this.characterPosition.x <= this.portalPosition.x + 20
+    ) {
+      this.closePortal();
+    }
   }
 }
 

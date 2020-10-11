@@ -15,15 +15,31 @@ export default class Game extends Component {
     onLeave: PropTypes.func,
   };
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      fade: true,
+      papers: [],
+      backgroundIndex: 0,
+      currentPaper: "url",
+    };
+    this.keyListener = new KeyListener();
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    window.context = window.context || new AudioContext();
+
+    this.handleEnterBuilding = this.handleEnterBuilding.bind(this);
+  }
+
   //base music
   componentDidMount() {
-    // this.player = new AudioPlayer("/assets/ellinia.wav", () => {
-    //   this.stopMusic = this.player.play({
-    //     loop: true,
-    //     offset: 1,
-    //     volume: 0,
-    //   });
-    // });
+    this.player = new AudioPlayer("/assets/ellinia.wav", () => {
+      this.stopMusic = this.player.play({
+        loop: true,
+        offset: 1,
+        volume: 0,
+      });
+    });
 
     this.setState({
       fade: false,
@@ -37,6 +53,16 @@ export default class Game extends Component {
       this.keyListener.A,
       this.keyListener.CTRL,
     ]);
+
+    fetch("http://localhost:5005/ocean_papers")
+      .then((res) => res.json())
+      .then((data) => {
+        const papers = data.map((paper) => paper.source);
+        this.setState({
+          papers, // same as papers: papers (only works when its the same name)
+          backgroundIndex: Math.round(Math.random() * papers.length),
+        });
+      });
   }
 
   componentWillUnmount() {
@@ -44,12 +70,26 @@ export default class Game extends Component {
     this.keyListener.unsubscribe();
   }
 
+  bgRandomizer = () => {
+    const papers = this.state.papers;
+    const randomPaperNum = Math.round(Math.random() * papers.length);
+  };
+
   render() {
     return (
       <Loop>
         <Stage style={{ background: "#3a9bdc" }}>
-          <World onInit={this.physicsInit}>
-            <Level store={GameStore} />
+          <World
+            onInit={this.physicsInit}
+            onCollision={(param) => {
+              console.log("onCollision");
+              console.log(param);
+            }}
+          >
+            <Level
+              store={GameStore}
+              currentPaper={this.state.papers[this.state.backgroundIndex]}
+            />
             <Character
               onEnterBuilding={this.handleEnterBuilding}
               store={GameStore}
@@ -93,18 +133,5 @@ export default class Game extends Component {
     setTimeout(() => {
       this.props.onLeave(index);
     }, 500);
-  }
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      fade: true,
-    };
-    this.keyListener = new KeyListener();
-    window.AudioContext = window.AudioContext || window.webkitAudioContext;
-    window.context = window.context || new AudioContext();
-
-    this.handleEnterBuilding = this.handleEnterBuilding.bind(this);
   }
 }

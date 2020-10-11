@@ -16,11 +16,11 @@ class Portal extends React.Component {
   };
 
   getWrapperStyles() {
-    const { characterPosition, stageX } = this.props.store;
+    const { portalPosition, stageX } = this.props.store;
     const { scale } = this.context;
-    const { x, y } = characterPosition;
-    const targetX = x + stageX + 100;
-    const targetY = y - 40;
+    const { x, y } = portalPosition;
+    const targetX = x + stageX;
+    const targetY = y;
 
     return {
       position: "absolute",
@@ -29,12 +29,17 @@ class Portal extends React.Component {
       transformOrigin: "left top",
     };
   }
+  // randomMethod() {
+  //   this.body
+  // }
   render() {
+    const x = this.props.store.characterPosition.x;
     return (
       this.props.store.isPortalOpen && (
         <div className="portal" style={this.getWrapperStyles()}>
           <Body
-            args={[300, 384, 64, 64]}
+            label="portal"
+            args={[x, 384, 120, 120]}
             inertia={Infinity}
             ref={(b) => {
               this.body = b;

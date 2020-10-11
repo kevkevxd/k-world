@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
-import Matter, { Engine, Events } from 'matter-js';
+import Matter, { Engine, Events } from "matter-js";
 
 export default class World extends Component {
   static propTypes = {
@@ -62,14 +62,14 @@ export default class World extends Component {
   componentDidMount() {
     this.loopID = this.context.loop.subscribe(this.loop);
     this.props.onInit(this.engine);
-    Events.on(this.engine, 'afterUpdate', this.props.onUpdate);
-    Events.on(this.engine, 'collisionStart', this.props.onCollision);
+    Events.on(this.engine, "afterUpdate", this.props.onUpdate);
+    Events.on(this.engine, "collisionStart", this.props.onCollision);
   }
 
   componentWillUnmount() {
     this.context.loop.unsubscribe(this.loopID);
-    Events.off(this.engine, 'afterUpdate', this.props.onUpdate);
-    Events.off(this.engine, 'collisionStart', this.props.onCollision);
+    Events.off(this.engine, "afterUpdate", this.props.onUpdate);
+    Events.off(this.engine, "collisionStart", this.props.onCollision);
   }
 
   getChildContext() {
@@ -80,11 +80,11 @@ export default class World extends Component {
 
   render() {
     const defaultStyles = {
-      position: 'absolute',
+      position: "absolute",
       top: 0,
       left: 0,
-      height: '100%',
-      width: '100%',
+      height: "100%",
+      width: "100%",
     };
 
     return <div style={defaultStyles}>{this.props.children}</div>;
